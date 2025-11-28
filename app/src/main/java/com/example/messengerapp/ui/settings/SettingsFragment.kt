@@ -1,20 +1,20 @@
 package com.example.messenger.ui.settings
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CompoundButton
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import com.example.messenger.databinding.FragmentSettingsBinding
+import com.example.messengerapp.ui.AppViewModel
 
 class SettingsFragment : Fragment() {
 
     private var _binding: FragmentSettingsBinding? = null
     private val binding get() = _binding!!
+    private val appVM: AppViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,16 +32,14 @@ class SettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val prefs = requireContext().getSharedPreferences("settings", Context.MODE_PRIVATE)
-        val isDark = prefs.getBoolean("dark_theme", false)
-        binding.themeSwitch.isChecked = isDark
+        appVM.isDark.observe(viewLifecycleOwner) { isDark ->
+            if (binding.themeSwitch.isChecked != isDark) {
+                binding.themeSwitch.isChecked = isDark
+            }
+        }
 
-        binding.themeSwitch.setOnCheckedChangeListener { _: CompoundButton, checked: Boolean ->
-            prefs.edit().putBoolean("dark_theme", checked).apply()
-            AppCompatDelegate.setDefaultNightMode(
-                if (checked) AppCompatDelegate.MODE_NIGHT_YES
-                else AppCompatDelegate.MODE_NIGHT_NO
-            )
+        binding.themeSwitch.setOnCheckedChangeListener { _, checked ->
+            appVM.setDarkMode(checked)
         }
     }
 

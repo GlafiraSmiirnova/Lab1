@@ -65,6 +65,24 @@
                 android:layout_marginBottom="24dp"
                 android:text="О себе" />
 
+            <EditText
+                android:id="@+id/nameEdit"
+                android:enabled="false"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Изменить имя"
+                android:inputType="textPersonName"
+                android:layout_marginBottom="8dp" />
+
+            <EditText
+                android:id="@+id/statusEdit"
+                android:enabled="false"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Изменить статус"
+                android:inputType="text"
+                android:layout_marginBottom="16dp" />
+
         </LinearLayout>
     </ScrollView>
 
@@ -91,6 +109,3 @@
             android:textColor="@android:color/white" />
     </LinearLayout>
 </LinearLayout>
-
-
-
