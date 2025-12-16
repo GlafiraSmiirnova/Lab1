@@ -1,64 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    android:paddingTop="48dp">
+    android:orientation="vertical"
+    android:padding="16dp">
 
-    <LinearLayout
+    <Button
+        android:id="@+id/refreshButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:text="Обновить" />
 
-        <TextView
-            android:id="@+id/feedTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hey! This is your feed (kinda)"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="16dp" />
+    <TextView
+        android:id="@+id/lastUpdatedText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Последнее обновление: —"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="12dp"
-            android:background="#EEEEEE"
-            android:text="Welcome to your feed 👋"
-            android:layout_marginBottom="12dp" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/feedRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="12dp"
+        android:layout_weight="1" />
+</LinearLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="12dp"
-            android:background="#EEEEEE"
-            android:text="The weather is noice 🌤️"
-            android:layout_marginBottom="12dp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="12dp"
-            android:background="#EEEEEE"
-            android:text="Wassup ☕"
-            android:layout_marginBottom="12dp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="12dp"
-            android:background="#EEEEEE"
-            android:text="New release coming soon 🚀"
-            android:layout_marginBottom="12dp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="12dp"
-            android:background="#EEEEEE"
-            android:text="Thanks for joining us ❤️"
-            android:layout_marginBottom="12dp" />
-
-    </LinearLayout>
-</ScrollView>
 
