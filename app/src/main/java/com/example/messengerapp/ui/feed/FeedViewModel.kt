@@ -1,6 +1,5 @@
 package com.example.messengerapp.ui.feed
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -39,6 +38,13 @@ class FeedViewModel(
             val data = repo.refresh()
             _messages.postValue(data)
             _lastUpdated.postValue(nowTime())
+        }
+    }
+
+    fun toggleLike(id: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repo.toggleLike(id)
+            _messages.postValue(repo.loadMessages())
         }
     }
 }

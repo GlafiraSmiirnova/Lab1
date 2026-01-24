@@ -16,4 +16,7 @@ interface MessageDao {
 
     @Query("DELETE FROM messages")
     suspend fun clear()
+
+    @Query("UPDATE messages SET isLiked = NOT isLiked WHERE id = :id")
+    suspend fun toggleLike(id: Int)
 }

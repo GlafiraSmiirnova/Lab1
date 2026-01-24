@@ -11,8 +11,20 @@ class MessageRepository(
 ) {
     suspend fun loadMessages(): List<MessageEntity> {
         return try {
+            val cached = dao.getAll()
+            val likedById = cached.associate { it.id to it.isLiked }
+
             val remote = api.getMessages()
-            val entities = remote.map { it.toEntity() }
+            val entities = remote.map { dto ->
+                MessageEntity(
+                    id = dto.id,
+                    title = dto.name,
+                    author = dto.email,
+                    text = dto.body,
+                    isLiked = likedById[dto.id] ?: false
+                )
+            }
+
             dao.insertAll(entities)
             entities
         } catch (e: IOException) {
@@ -27,4 +39,6 @@ class MessageRepository(
     suspend fun refresh(): List<MessageEntity> {
         return loadMessages()
     }
+
+    suspend fun toggleLike(id: Int) = dao.toggleLike(id)
 }

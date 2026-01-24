@@ -21,7 +21,9 @@ class FeedFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var vm: FeedViewModel
-    private val adapter = MessageAdapter()
+    private val adapter = MessageAdapter { id ->
+        vm.toggleLike(id)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,16 +54,14 @@ class FeedFragment : Fragment() {
         // vm
         vm = ViewModelProvider(this, FeedViewModelFactory(repo))[FeedViewModel::class.java]
 
+        binding.fabRefresh.setOnClickListener { vm.refresh() }
+
         vm.messages.observe(viewLifecycleOwner) { adapter.submitList(it) }
 
         vm.lastUpdated.observe(viewLifecycleOwner) { t ->
             binding.lastUpdatedText.text = "Последнее обновление: $t"
         }
 
-        binding.refreshButton.setOnClickListener {
-            Log.d("Feed", "refresh click")
-            vm.refresh()
-        }
         vm.load()
 
         Log.d("Lifecycle", "FeedFragment onViewCreated")
